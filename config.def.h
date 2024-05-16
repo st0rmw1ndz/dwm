@@ -101,6 +101,11 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 
+	{ MODKEY,                       XK_u,      viewnext,       {0} },
+	{ MODKEY,                       XK_y,      viewprev,       {0} },
+	{ MODKEY|ShiftMask,             XK_u,      tagtonext,      {0} },
+	{ MODKEY|ShiftMask,             XK_y,      tagtoprev,      {0} },
+
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
