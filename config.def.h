@@ -74,7 +74,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 
-    { MODKEY,                       XK_v,      focusmaster,    {0} },
+        { MODKEY,                       XK_v,      focusmaster,    {0} },
 	{ MODKEY|ShiftMask,             XK_v,      zoom,           {0} },
 
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
@@ -101,11 +101,6 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-
-	{ MODKEY,                       XK_u,      viewnext,       {0} },
-	{ MODKEY,                       XK_y,      viewprev,       {0} },
-	{ MODKEY|ShiftMask,             XK_u,      tagtonext,      {0} },
-	{ MODKEY|ShiftMask,             XK_y,      tagtoprev,      {0} },
 
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 
