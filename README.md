@@ -19,3 +19,7 @@ Personal build of the dynamic window manager for X
 - [pertag](https://dwm.suckless.org/patches/pertag/) - keeps layout, mwfact, barpos and nmaster per tag
 - [alwayscenter](https://dwm.suckless.org/patches/alwayscenter/) - all floating windows are centered
 - [shiftview](https://lists.suckless.org/dev/1104/7590.html) - increment or decrement the selected tag
+
+## Information
+
+For more information, see the [dwm page](https://dwm.suckless.org/) on the suckless website.
