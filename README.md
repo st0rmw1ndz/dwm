@@ -19,7 +19,6 @@ Personal build of the dynamic window manager for X
 - [pertag](https://dwm.suckless.org/patches/pertag/) - keeps layout, mwfact, barpos and nmaster per tag
 - [alwayscenter](https://dwm.suckless.org/patches/alwayscenter/) - all floating windows are centered
 - [shiftview](https://lists.suckless.org/dev/1104/7590.html) - increment or decrement the selected tag
-- [windowmap](https://dwm.suckless.org/patches/windowmap/) - makes the windows get mapped or unmapped in Xorg (allows picom fading)
 
 ## Information
 
