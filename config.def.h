@@ -56,13 +56,14 @@ static const Layout layouts[] = {
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+/* helper for spawning commands inside the terminal */
+#define TERMCMD(cmd) { .v = (const char*[]){ "st", "-e", cmd, NULL } }
 
 #define STATUSBAR "dwmblocks"
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "st", NULL };
 
 /*
  * Xresources preferences to load at startup
@@ -87,17 +88,6 @@ ResourcePref resources[] = {
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_F1,     spawn,          SHCMD("thunar") },
-	{ MODKEY,                       XK_F2,     spawn,          SHCMD("qutebrowser") },
-	{ MODKEY,                       XK_F3,     spawn,          SHCMD("thunderbird") },
-	{ MODKEY,                       XK_F4,     spawn,          SHCMD("spotify") },
-
-	{ 0,                            XK_Print,  spawn,          SHCMD("flameshot gui") },
-	{ ShiftMask,                    XK_Print,  spawn,          SHCMD("flameshot full") },
-
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -144,6 +134,22 @@ static const Key keys[] = {
 
 	{ MODKEY,                       XK_Delete, quit,           {1} }, /* restart */
         { MODKEY|ShiftMask,             XK_Delete, quit,           {0} }, /* quit */
+
+	{ MODKEY,                       XK_F1,     spawn,          SHCMD("thunar") },
+	{ MODKEY,                       XK_F2,     spawn,          SHCMD("qutebrowser") },
+	{ MODKEY,                       XK_F3,     spawn,          SHCMD("thunderbird") },
+	{ MODKEY,                       XK_F4,     spawn,          SHCMD("spotify") },
+
+	{ MODKEY|ControlMask,           XK_F9,     spawn,          SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -35 $(pidof dwmblocks)") },
+	{ MODKEY|ControlMask,           XK_F10,    spawn,          SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ 0; wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-; kill -35 $(pidof dwmblocks)") },
+	{ MODKEY|ControlMask,           XK_F11,    spawn,          SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ 0; wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+; kill -35 $(pidof dwmblocks)") },
+	{ MODKEY|ControlMask,           XK_F12,    spawn,          SHCMD("run-i3lock") },
+
+	{ 0,                            XK_Print,  spawn,          SHCMD("flameshot gui") },
+	{ ShiftMask,                    XK_Print,  spawn,          SHCMD("flameshot full") },
+
+	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_Return, spawn,          SHCMD("st") },
 };
 
 /* button definitions */
