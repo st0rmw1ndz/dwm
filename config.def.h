@@ -19,6 +19,8 @@ static char *colors[][3] = {
        [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
        [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
 };
+static char scratchpadname[] = "scratchpad";
+static char scratchpadsize[] = "120x34";
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
@@ -64,6 +66,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
+static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", scratchpadsize, NULL };
 
 /*
  * Xresources preferences to load at startup
@@ -84,6 +87,8 @@ ResourcePref resources[] = {
 	{ "nmaster",          	INTEGER, &nmaster },
 	{ "resizehints",       	INTEGER, &resizehints },
 	{ "mfact",      	FLOAT,   &mfact },
+	{ "scratchpadname",     STRING,  &scratchpadname },
+	{ "scratchpadsize",     STRING,  &scratchpadsize },
 };
 
 static const Key keys[] = {
@@ -134,6 +139,8 @@ static const Key keys[] = {
 
 	{ MODKEY,                       XK_Delete, quit,           {1} }, /* restart */
         { MODKEY|ShiftMask,             XK_Delete, quit,           {0} }, /* quit */
+
+        { MODKEY,                       XK_apostrophe, togglescratch, {.v = scratchpadcmd } },
 
 	{ MODKEY,                       XK_F1,     spawn,          SHCMD("thunar") },
 	{ MODKEY,                       XK_F2,     spawn,          SHCMD("qutebrowser") },
