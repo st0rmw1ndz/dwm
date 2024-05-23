@@ -92,6 +92,9 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_F3,     spawn,          SHCMD("thunderbird") },
 	{ MODKEY,                       XK_F4,     spawn,          SHCMD("spotify") },
 
+	{ 0,                            XK_Print,  spawn,          SHCMD("flameshot gui") },
+	{ ShiftMask,                    XK_Print,  spawn,          SHCMD("flameshot full") },
+
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 
