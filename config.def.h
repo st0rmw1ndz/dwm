@@ -24,7 +24,6 @@ static char scratchpadsize[] = "120x34";
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-static const int taglayouts[] = { 1, 0, 0, 2, 2, 0, 0, 0, 0 };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -45,9 +44,8 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
-	{ "[D]",      deck },
-        { "[M]",      monocle },
 	{ "><>",      NULL },    /* no layout function means floating behavior */
+	{ "[M]",      monocle },
 };
 
 /* key definitions */
@@ -115,10 +113,9 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY|ShiftMask,             XK_f,      togglefullscr,  {0} },
 
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, /* tile */
-        { MODKEY,                       XK_r,      setlayout,      {.v = &layouts[1]} }, /* deck */
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} }, /* monocle */
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[3]} }, /* floating */
+	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
@@ -167,7 +164,7 @@ static const Key keys[] = {
 static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
-	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} }, /* monocle */
+	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 
