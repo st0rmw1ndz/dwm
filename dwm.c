@@ -1375,46 +1375,44 @@ maprequest(XEvent *e)
 void
 monocle(Monitor *m)
 {
-        unsigned int i, n;
-        int oh, ov, ih, iv;
-        int mx = 0, my = 0, mh = 0, mw = 0;
-        int sx = 0, sy = 0, sh = 0, sw = 0;
-        float mfacts, sfacts;
-        int mrest, srest;
-        Client *c;
+	unsigned int n = 0, oe = enablegaps;
+	Client *c;
 
-        getgaps(m, &oh, &ov, &ih, &iv, &n);
-        if (n == 0)
-                return;
+	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
+	if (n == 0)
+		return;
 
-        sx = mx = m->wx + ov;
-        sy = my = m->wy + oh;
-        mh = m->wh - 2*oh - ih * (MIN(n, m->nmaster) - 1);
-        sh = m->wh - 2*oh - ih * (n - m->nmaster - 1);
-        sw = mw = m->ww - 2*ov;
+	n = 0;
 
-        if (m->nmaster && n > m->nmaster) {
-                sw = (mw - iv) * (1 - m->mfact);
-                mw = mw - iv - sw;
-                sx = mx + mw + iv;
-        }
-
-        getfacts(m, mh, sh, &mfacts, &sfacts, &mrest, &srest);
+	for (c = m->clients; c; c = c->next)
+		if (ISVISIBLE(c))
+			n++;
 
 	if (n > 0) /* override layout symbol */
-                snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
+		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
 
-        for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
-            resize(c, sx, newy, neww, newh, 0);
-             resize(c, sx, sy, sw - (2*c->bw), (sh / sfacts) + ((i - m->nmaster) < srest ? 1 : 0) - (2*c->bw), 0);
-            sy += HEIGHT(c) + ih;
-        if (i < m->nmaster) {
-            resize(c, mx, my, mw - (2*c->bw), (mh / mfacts) + (i < mrest ? 1 : 0) - (2*c->bw), 0);
-            my += HEIGHT(c) + ih;
-        } else {
-            resize(c, sx, sy, sw - (2*c->bw), (sh / sfacts) + ((i - m->nmaster) < srest ? 1 : 0) - (2*c->bw), 0);
-            sy += HEIGHT(c) + ih;
-        }
+	int newx, newy, neww, newh;
+	for (c = nexttiled(m->clients); c; c = nexttiled(c->next)) {
+		if (m->gappx == 0) {
+			newx = m->wx - c->bw;
+			newy = m->wy - c->bw;
+			neww = m->ww;
+			newh = m->wh;
+		} else {
+			newx = m->wx + m->gappx*oe - c->bw;
+			newy = m->wy + m->gappx*oe - c->bw;
+			neww = m->ww - 2 * (m->gappx*oe + c->bw);
+			newh = m->wh - 2 * (m->gappx*oe + c->bw);
+		}
+		applysizehints(c, &newx, &newy, &neww, &newh, 0);
+		if (neww < m->ww) {
+			newx = m->wx + (m->ww - (neww + 2 * c->bw)) / 2;
+		}
+		if (newh < m->wh) {
+			newy = m->wy + (m->wh - (newh + 2 * c->bw)) / 2;
+			resize(c, newx, newy, neww, newh, 0);
+		}
+	}
 }
 
 void
