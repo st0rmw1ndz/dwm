@@ -1,8 +1,0 @@
-config.h
-
-*.diff
-*.orig
-*.rej
-
-*.o
-dwm
