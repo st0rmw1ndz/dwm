@@ -957,6 +957,8 @@ void
 focus(Client *c)
 {
 	if (!c || !ISVISIBLE(c))
+		for (c = selmon->stack; c && (!ISVISIBLE(c) || (c->issticky && c->isfloating)); c = c->snext);
+	if (!c)
 		for (c = selmon->stack; c && !ISVISIBLE(c); c = c->snext);
 	if (selmon->sel && selmon->sel != c)
 		unfocus(selmon->sel, 0);
@@ -1038,16 +1040,16 @@ focusstack(const Arg *arg)
 	if (!selmon->sel || (selmon->sel->isfullscreen && lockfullscreen))
 		return;
 	if (arg->i > 0) {
-		for (c = selmon->sel->next; c && !ISVISIBLE(c); c = c->next);
+                for (c = selmon->sel->next; c && (!ISVISIBLE(c) || (c->issticky && c->isfloating)); c = c->next);
 		if (!c)
-			for (c = selmon->clients; c && !ISVISIBLE(c); c = c->next);
+                        for (c = selmon->clients; c && (!ISVISIBLE(c) || (c->issticky && c->isfloating)); c = c->next);
 	} else {
 		for (i = selmon->clients; i != selmon->sel; i = i->next)
-			if (ISVISIBLE(i))
+                        if (ISVISIBLE(i) && !(i->issticky && i->isfloating))
 				c = i;
 		if (!c)
 			for (; i; i = i->next)
-				if (ISVISIBLE(i))
+				if (ISVISIBLE(i) && !(i->issticky && i->isfloating))
 					c = i;
 	}
 	if (c) {
@@ -1462,7 +1464,7 @@ movemouse(const Arg *arg)
 			handler[ev.type](&ev);
 			break;
 		case MotionNotify:
-			if ((ev.xmotion.time - lasttime) <= (1000 / 60))
+			if ((ev.xmotion.time - lasttime) <= (1000 / 120))
 				continue;
 			lasttime = ev.xmotion.time;
 
@@ -1676,7 +1678,7 @@ resizemouse(const Arg *arg)
 			handler[ev.type](&ev);
 			break;
 		case MotionNotify:
-			if ((ev.xmotion.time - lasttime) <= (1000 / 60))
+			if ((ev.xmotion.time - lasttime) <= (1000 / 120))
 				continue;
 			lasttime = ev.xmotion.time;
 
