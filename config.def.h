@@ -101,6 +101,8 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+	{ MODKEY,                       XK_y,      shiftview,      {.i = -1 } },
+	{ MODKEY,                       XK_u,      shiftview,      {.i = +1 } },
 
 	{ MODKEY|ShiftMask,             XK_Delete, quit,           {0} }, /* quit */
         { MODKEY,                       XK_Delete, quit,           {1} }, /* restart */
