@@ -100,7 +100,7 @@ static const Key keys[] = {
         { MODKEY,                       XK_Delete, quit,           {1} }, /* restart */
 
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 };
 
 /* button definitions */
