@@ -63,7 +63,6 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "st", NULL };
 
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
@@ -86,7 +85,7 @@ static const Key keys[] = {
         { MODKEY|ShiftMask,             XK_q,      killclient,     {.ui = 1} }, // kill all unselected
 	{ MODKEY|ShiftMask,             XK_f,      togglefullscr,  {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY|ShiftMask,             XK_s,      togglesticky, {0} },
+	{ MODKEY|ShiftMask,             XK_s,      togglesticky,   {0} },
 
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
         { MODKEY|ShiftMask,             XK_n,      togglegaps,     {0} },
@@ -123,8 +122,26 @@ static const Key keys[] = {
 
 	{ MODKEY,                       XK_n,      togglescratch,  {.v = scratchpadcmd } },
 
+	{ MODKEY,                       XK_F1,     spawn,          SHCMD("thunar") },
+	{ MODKEY,                       XK_F2,     spawn,          SHCMD("qutebrowser") },
+	{ MODKEY,                       XK_F3,     spawn,          SHCMD("thunderbird") },
+	{ MODKEY,                       XK_F4,     spawn,          SHCMD("spotify") },
+
+	{ MODKEY|ControlMask,           XK_F5,     spawn,          SHCMD("playerctl previous") },
+	{ MODKEY|ControlMask,           XK_F6,     spawn,          SHCMD("playerctl play-pause") },
+	{ MODKEY|ControlMask,           XK_F7,     spawn,          SHCMD("playerctl next") },
+	{ MODKEY|ControlMask,           XK_F8,     spawn,          SHCMD("playerctl stop") },
+
+	{ MODKEY|ControlMask,           XK_F9,     spawn,          SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -35 $(pidof dwmblocks)") },
+	{ MODKEY|ControlMask,           XK_F10,    spawn,          SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ 0; wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-; kill -35 $(pidof dwmblocks)") },
+	{ MODKEY|ControlMask,           XK_F11,    spawn,          SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ 0; wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+; kill -35 $(pidof dwmblocks)") },
+	{ MODKEY|ControlMask,           XK_F12,    spawn,          SHCMD("run-i3lock") },
+
+	{ 0,                            XK_Print,  spawn,          SHCMD("flameshot gui") },
+	{ ShiftMask,                    XK_Print,  spawn,          SHCMD("flameshot full") },
+
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_Return, spawn,          SHCMD("st") },
 };
 
 /* button definitions */
