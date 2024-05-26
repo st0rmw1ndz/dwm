@@ -81,6 +81,7 @@ static const Key keys[] = {
         { MODKEY|ShiftMask,             XK_q,      killclient,     {.ui = 1} }, // kill all unselected
 	{ MODKEY|ShiftMask,             XK_f,      togglefullscr,  {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+	{ MODKEY|ShiftMask,             XK_s,      togglesticky, {0} },
 
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
